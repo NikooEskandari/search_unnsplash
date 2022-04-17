@@ -16,7 +16,31 @@ export default function SearchPhotos() {
     })
     .then((data) => {
       setPics(data.response.results);
-      console.log(data.response.results);
+
+      let userObject = {
+        id: 1, 
+        search_result: data.response.results
+      };
+
+      fetch('http://localhost:3000/edit-user/1', {  
+        method: 'GET'
+      }).then((response) => 
+        console.log(response)
+      );
+
+
+      fetch('http://localhost:3000/update-user/1', {  
+        method: 'PUT', 
+        body: JSON.stringify(data.response.results),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }).then((response) => 
+        console.log(response)
+      );
+
+      
     });
   }
 
@@ -25,14 +49,13 @@ export default function SearchPhotos() {
           <form className="form" onSubmit={searchPhotos}> 
             <label className="label" htmlFor="query"> 
               {" "}
-              📷
             </label>
 
             <input
               type="text"
               name="query"
               className="input"
-              placeholder={`Try "dog" or "apple"`}
+              placeholder={`Search knowledge`}
               value={query}
               onChange={(e) => setQuery(e.target.value)}  
             />
