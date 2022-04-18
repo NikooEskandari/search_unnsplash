@@ -2,13 +2,11 @@ import { React } from "react";
 import { 
     Stack, 
     Box,
-    Image,
     Flex,
     Center,
     SimpleGrid
   } from '@chakra-ui/react';
   import Card from "react-bootstrap/Card";
-
 
 export default function DisplayResult (props) {
 
@@ -20,12 +18,15 @@ export default function DisplayResult (props) {
                     {props.pics &&
                         props.pics.map(function (pic) {
                             return (
-                                <Box w='20vw' h="auto">
+                                <Box w='20vw' h="auto" key={pic.id}>
                                     <Card className="card" key={pic.id}>
-                                        <Card.Img variant="top" 
+                                        <Card.Img 
+                                        variant="top" 
                                         src={pic.urls.full} 
                                         className='cardImage'
+                                        key={pic.id}
                                         />
+                                        
                                         <Card.Body>
                                             <Card.Text>
                                                 {pic.alt_description}

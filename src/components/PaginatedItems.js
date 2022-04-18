@@ -9,8 +9,6 @@ export default function PaginatedItems({ itemsPerPage }) {
     const [pageCount, setPageCount] = useState(0);
     const { pics, setPics } = useContext(PicContext);
 
-    console.log(pics);
-
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     const [itemOffset, setItemOffset] = useState(0);

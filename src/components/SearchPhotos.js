@@ -38,6 +38,9 @@ export default function SearchPhotos() {
         return data.response.results
       });
 
+      // For now, I suppose that client id is 1 (since I haven't implemented a login form)
+      // But the id should come from server for each user and then attached to the 'edit-user'
+      // Or 'update-user' urls
       // Edit user
       fetch('http://localhost:3000/edit-user/1', {  
         method: 'GET'
@@ -46,6 +49,9 @@ export default function SearchPhotos() {
       );
 
       // Update user with the search result
+      // Put and Post don't work, so this action returns a 404 error (even in Postman)
+      // I looked it up. It probably has something to do with port
+      // But I didn't have enough time to fix it
       fetch('http://localhost:3000/update-user/1', {  
         method: 'PUT', 
         body: JSON.stringify(data.response.results),
@@ -57,7 +63,6 @@ export default function SearchPhotos() {
         console.log(response)
       );
 
-      
     });
   }
 
@@ -68,6 +73,7 @@ export default function SearchPhotos() {
             Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
           </Button>
         </header>
+        
         <Flex w='100%' h='50%' align='center' justify='center' marginTop='5vh'>
           <Center w='60%' h='50%'>
                 <InputGroup>
