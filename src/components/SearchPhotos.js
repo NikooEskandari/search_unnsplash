@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { 
+  Input,
+  InputRightElement,
+  Center,
+  Flex,
+  InputGroup,
+  Button,
+  useColorMode 
+} from '@chakra-ui/react';
+import { SearchIcon } from "@chakra-ui/icons";
 import { createApi } from 'unsplash-js';
+import { PicContext } from '../App';
 
+// Unsplash API 
 const unsplash = createApi({ accessKey: 'XStI319cvaDkNBHLb9dv3t3zpE8XBk-pJNA6z-RmZxI' });
 
 export default function SearchPhotos() {
+  const config = {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  }
+
+  const { pics, setPics } = useContext(PicContext);
   const [query, setQuery] = useState("");
-  const [pics, setPics] = useState([]);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const searchPhotos = async (e) => {
     e.preventDefault();
@@ -15,20 +33,19 @@ export default function SearchPhotos() {
       query: query
     })
     .then((data) => {
-      setPics(data.response.results);
 
-      let userObject = {
-        id: 1, 
-        search_result: data.response.results
-      };
+      setPics(() => {
+        return data.response.results
+      });
 
+      // Edit user
       fetch('http://localhost:3000/edit-user/1', {  
         method: 'GET'
       }).then((response) => 
         console.log(response)
       );
 
-
+      // Update user with the search result
       fetch('http://localhost:3000/update-user/1', {  
         method: 'PUT', 
         body: JSON.stringify(data.response.results),
@@ -46,39 +63,36 @@ export default function SearchPhotos() {
 
     return (
         <>
-          <form className="form" onSubmit={searchPhotos}> 
-            <label className="label" htmlFor="query"> 
-              {" "}
-            </label>
+        <header>
+          <Button onClick={toggleColorMode}>
+            Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+          </Button>
+        </header>
+        <Flex w='100%' h='50%' align='center' justify='center' marginTop='5vh'>
+          <Center w='60%' h='50%'>
+                <InputGroup>
+                  <InputRightElement
+                    className="InputRight"
+                    pointerEvents="cursor"
+                    children={<SearchIcon className="SearchIcon" color="gray.300" />}
+                    size="sm"
+                    onClick={searchPhotos}
+                  />
 
-            <input
-              type="text"
-              name="query"
-              className="input"
-              placeholder={`Search knowledge`}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}  
-            />
-
-            <button type="submit" className="button">
-              Search
-            </button>
-          </form> 
-
-          <div className="card-list">
-            {
-              pics.map((pic) => 
-              <div className="card" key={pic.id}>
-                <img
-                  className="card--image"
-                  alt={pic.alt_description}
-                  src={pic.urls.full}
-                  width="50%"
-                  height="50%"
-                ></img>
-              </div>)
-            }
-          </div>
+                  <Input 
+                  id='query' 
+                  name="query" 
+                  borderRadius='10px'
+                  className="Input" 
+                  variant="outline" 
+                  size="sm" 
+                  h='5vh'
+                  placeholder={`Search knowledge`}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)} />
+                </InputGroup>
+            </Center>
+        </Flex>
         </>
       );
 }
