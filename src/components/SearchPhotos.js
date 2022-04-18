@@ -11,6 +11,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { createApi } from 'unsplash-js';
 import { PicContext } from '../App';
+import PaginatedItems from "./PaginatedItems";
 
 // Unsplash API 
 const unsplash = createApi({ accessKey: 'XStI319cvaDkNBHLb9dv3t3zpE8XBk-pJNA6z-RmZxI' });
@@ -73,7 +74,7 @@ export default function SearchPhotos() {
             Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
           </Button>
         </header>
-        
+
         <Flex w='100%' h='50%' align='center' justify='center' marginTop='5vh'>
           <Center w='60%' h='50%'>
                 <InputGroup>
@@ -88,6 +89,7 @@ export default function SearchPhotos() {
                   <Input 
                   id='query' 
                   name="query" 
+                  backgroundColor='#ededed'
                   borderRadius='10px'
                   className="Input" 
                   variant="outline" 
@@ -99,6 +101,8 @@ export default function SearchPhotos() {
                 </InputGroup>
             </Center>
         </Flex>
+
+        <PaginatedItems itemsPerPage={9} />
         </>
       );
 }

@@ -19,7 +19,7 @@ export default function PaginatedItems({ itemsPerPage }) {
       console.log(`Loading items from ${itemOffset} to ${endOffset}`);
       setCurrentItems(pics.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(pics.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
+    }, [itemOffset, itemsPerPage, pics]);
   
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
@@ -32,6 +32,8 @@ export default function PaginatedItems({ itemsPerPage }) {
   
     return (
       <>
+        <DisplayResult pics = {currentItems}/> 
+
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
@@ -40,9 +42,17 @@ export default function PaginatedItems({ itemsPerPage }) {
           pageCount={pageCount}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
+          breakClassName={'page-item'}
+          breakLinkClassName={'page-link'}
+          containerClassName={'pagination'}
+          pageClassName={'page-item'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          activeClassName={'active'}
         />
-
-        <DisplayResult pics = {pics}/> 
       </>
     );
   }

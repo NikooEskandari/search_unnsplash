@@ -8,3 +8,32 @@
     height: 20vh;
     border-radius: 10px;
 }
+
+ul.pagination {
+    margin-top: 5vh;
+    display: inline-block;
+    margin-left: 20px;
+    padding-left: 0;
+ }
+ 
+ li.page-item {
+    display: inline-block;
+    border: 1px solid rgb(224, 224, 224);
+    color: #000;
+    cursor: pointer;
+    margin-right: 3px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+ }
+ 
+li.page-item a.page-link {
+      padding: 2px 5px;
+      display: inline-block;
+      color: #000;
+      outline: none;
+  }
+ 
+ #react-paginate li.active {
+    background: rgb(224, 224, 224);
+    outline: none;
+ }

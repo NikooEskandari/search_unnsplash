@@ -6,11 +6,13 @@ import {
     Center,
     SimpleGrid
   } from '@chakra-ui/react';
-  import Card from "react-bootstrap/Card";
+import Card from "react-bootstrap/Card";
 
 export default function DisplayResult (props) {
 
     return (
+        <>
+    
         <Flex w='100%' h='50%' align='center' justify='center' marginTop='5vh'>
           <Center w='80%' h='100%'>
             <Stack direction={['column', 'row']} spacing='24px' marginTop='5vh'>
@@ -26,7 +28,7 @@ export default function DisplayResult (props) {
                                         className='cardImage'
                                         key={pic.id}
                                         />
-                                        
+
                                         <Card.Body>
                                             <Card.Text>
                                                 {pic.alt_description}
@@ -41,5 +43,7 @@ export default function DisplayResult (props) {
             </Stack>  
            </Center>
         </Flex>
+
+        </>
     );
 }   
